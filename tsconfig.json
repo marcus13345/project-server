@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+		"experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "out",
+    "target": "esnext",
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
