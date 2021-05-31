@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import './view-container.js';
+import './lib/api.js'
 
 @customElement('project-server')
 export default class ProjectServer extends LitElement {
@@ -10,27 +11,16 @@ export default class ProjectServer extends LitElement {
 
 	static get styles() {
 		return css`
-			:root {
-				background: red;
-				color: white;
-			}
-
-			.box {
-				background: green;
-				width: 100px;
-				height: 100px;
+			.root {
+				font-size: 0px;
 			}
 		`;
 	}
 
 	render() {
-		console.log('rendered');
 		return html`
-			<div class="coolStuff">
+			<div class="root">
 				<view-container title="1"></view-container>
-				<view-container title="2"></view-container>
-				<view-container title="3"></view-container>
-				<view-container title="4"></view-container>
 			</div>
 		`;
 	}
