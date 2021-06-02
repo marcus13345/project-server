@@ -16,9 +16,8 @@ function proxyFactory(prefix) {
 	});
 }
 
-async function callApi(url, ...args) {
-	console.log(url);
-	return await (await fetch(url)).json();
+async function callApi(url) {
+	return (await fetch(url)).json();
 }
 
 async function postApi(url, payload) {
