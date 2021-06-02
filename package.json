@@ -5,12 +5,13 @@
   "license": "MIT",
   "dependencies": {
     "@web/dev-server": "^0.1.17",
+    "cross-env": "^7.0.3",
     "lit": "^2.0.0-rc.2",
     "multiview": "^3.0.1",
     "packery": "^2.1.2",
     "typescript": "^4.3.2"
   },
   "scripts": {
-    "dev": "multiview [ tsc --watch --preserveWatchOutput ] [ web-dev-server --node-resolve --watch ]"
+    "dev": "cross-env DEBUG_COLORS=true DEBUG_TIMESTAMP=false multiview [ tsc --watch --preserveWatchOutput ] [ web-dev-server --node-resolve --watch ]"
   }
 }

@@ -7,17 +7,32 @@ function proxyFactory(prefix) {
 	}, {
 		get(target, prop: string) {
 			if(prop === 'then') return undefined;
-			if(prop === 'get') return callApi.bind(window, target.prefix);
+			const url = `//${apiRoot}/${target.prefix.replace(/\./g, '/')}`; // ${args.map(v => `/${v}`).join('')}
+			if(prop === 'get') return callApi.bind(window, url);
+			if(prop === 'post') return postApi.bind(window, url);
 			// if(prop === 'post') return callApi.bind(window, target.prefix + '.' + prop);
 			return proxyFactory(`${target.prefix}.${prop}`);
 		}
 	});
 }
 
-async function callApi(path, ...args) {
-	const url = `//${apiRoot}/${path.replace(/\./g, '/')}${args.map(v => `/${v}`).join('')}`;
+async function callApi(url, ...args) {
 	console.log(url);
-	return (await fetch(url)).json();
+	return await (await fetch(url)).json();
+}
+
+async function postApi(url, payload) {
+	const rawResponse = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+  const content = await rawResponse.json();
+
+  console.log(content);
 }
 
 export default api;

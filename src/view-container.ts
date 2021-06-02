@@ -5,32 +5,37 @@ import api from './lib/api';
 @customElement('view-container')
 export default class ProjectServer extends LitElement {
 
-	@state()
-	projects: any[] = [];
+	@property()
+	projects: string = 'g';
+
+	@property()
+	title = "";
 
 	constructor() {
 		super();
+	}
+
+	connectedCallback() {
 		this.getProjects();
 	}
 
-	static get properties() {
-		return {
-			projects: {type: Array}
-		}
-	}
-
 	async getProjects() {
-		console.log('thing');
-		this.projects = await api.v1.projects.get();
-		console.log('BOP', this.projects);
-		this.requestUpdate();
+		// console.log('thing');
+		// this.title = "poop";
+		const a: string = await new Promise(res => setTimeout(_ => res('yuh'), 0));
+		// const a = await api.v1.projects.get();
+		console.log(typeof a);
+		console.log(a)
+		this.projects = a;
+		// console.log('BOP', this.projects);
+		// this.requestUpdate();
 	}
 
 	static get styles() {
 		return css`
 		:root, :host, .root {
 			font-size: 16px;
-			font-family: monospace;
+			/* font-family; */
 		}
 		`;
 	}
@@ -38,7 +43,8 @@ export default class ProjectServer extends LitElement {
 	render() {
 		return html`
 			<div class="root">
-				${this.projects.length}
+				${this.title}<br>
+				${this.projects}
 			</div>
 		`;
 	}
