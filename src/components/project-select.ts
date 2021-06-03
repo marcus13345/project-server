@@ -11,10 +11,6 @@ export default class ProjectSelect extends LitElement {
 
 	private timeout: NodeJS.Timeout = null;
 
-	constructor() {
-		super();
-	}
-
 	connectedCallback() {
 		super.connectedCallback();
 		this.getProjects();
@@ -30,7 +26,6 @@ export default class ProjectSelect extends LitElement {
 	async getProjects() {
 		this.timeout = setTimeout(async () => {
 			this.projects = await api.v1.projects.get();
-			console.log(this.projects)
 			if(this.isConnected) this.getProjects();
 		}, 1000);
 	}
@@ -41,11 +36,12 @@ export default class ProjectSelect extends LitElement {
 
 	static get styles() {
 		return css`
-			.projects td {
-				padding: 0px 16px;
+			.projects th {
+				text-align: left;
 			}
 			.projects {
-				min-width: 500px;
+				width: 100%;
+				padding: 0px 16px;
 			}
 		`;
 	}
@@ -58,18 +54,19 @@ export default class ProjectSelect extends LitElement {
 					<tr>
 						<th>Name</th>
 						<th>Location</th>
-						<th></th>
+						<th>go</th>
 					</tr>
 					${this.projects.map(project => html`
 						<tr>
 							<td>${project.name}</td>
 							<td>${project.location}</td>
+							<td><a href="#" @click=${this.dispatchEvent.bind(this, new CustomEvent('select', {detail: project}))}>Open</a></td>
 						</tr>
 					`)}
 					<tr id="new">
 						<td><input type="text" id="name"/></td>
 						<td></td>
-						<td><a href="#" @click=${this.createProject.bind(this)}>Create</td>
+						<td><a href="#" @click=${this.createProject.bind(this)}>Create</a></td>
 					</tr>
 				</table>
 			</div>
