@@ -35,8 +35,18 @@ export default class ProjectSelect extends LitElement {
 		}, 1000);
 	}
 
+	async createProject() {
+
+	}
+
 	static get styles() {
 		return css`
+			.projects td {
+				padding: 0px 16px;
+			}
+			.projects {
+				min-width: 500px;
+			}
 		`;
 	}
 
@@ -44,9 +54,24 @@ export default class ProjectSelect extends LitElement {
 		return html`
 			<div class="root">
 				<p>Project Select</p>
-				${this.projects.map(project => html`
-					<info-card text=${project.name} subtext=${project.location}></info-card>
-				`)}
+				<table class="projects">
+					<tr>
+						<th>Name</th>
+						<th>Location</th>
+						<th></th>
+					</tr>
+					${this.projects.map(project => html`
+						<tr>
+							<td>${project.name}</td>
+							<td>${project.location}</td>
+						</tr>
+					`)}
+					<tr id="new">
+						<td><input type="text" id="name"/></td>
+						<td></td>
+						<td><a href="#" @click=${this.createProject.bind(this)}>Create</td>
+					</tr>
+				</table>
 			</div>
 		`;
 	}
